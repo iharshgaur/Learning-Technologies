@@ -10,7 +10,7 @@ services:
     volumes:
       - mysqldata:/var/lib/mysql
     ports:
-      - "3000:3306"
+      - "3306:3306"
     networks:
       - mysqlnet
     restart: on-failure
@@ -25,9 +25,23 @@ services:
     networks:
       - mysqlnet
     restart: on-failure
+  
+  postgres:
+    image: postgres
+    container_name: postgres
+    environment:
+      POSTGRES_PASSWORD: mysecret
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgresdata:/var/lib/postgresql/data
+    networks:
+      - mysqlnet
+    restart: on-failure
 
 volumes:
   mysqldata:
+  postgresdata:
 
 networks:
   mysqlnet:
